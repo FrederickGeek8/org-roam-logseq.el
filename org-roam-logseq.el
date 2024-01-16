@@ -58,9 +58,11 @@
 (defcustom org-roam-logseq/logseq-pages (f-expand (f-join org-roam-logseq/logseq-folder "pages")) "Logseq pages directory." :type 'directory :group 'org-roam-logseq)
 
 
-;; default: exclude all files in the logseq/bak/ folder
+;; default: exclude all files in the logseq/bak/ folder and page/contents.org
 (defcustom org-roam-logseq/logseq-exclude-pattern
-  (string-join (list "^" (file-truename org-roam-logseq/logseq-folder) "/logseq/bak/.*$"))
+  (replace-regexp-in-string "/" "\\\\/"
+                            (string-join (list "\\("  (file-truename org-roam-logseq/logseq-folder) "logseq/bak/.*" "\\)" "\\|" "\\("  (file-truename org-roam-logseq/logseq-pages) "/contents.org"  "\\)"))
+                            )
   "Patterns of files that aren't supposed to be part of logseq."
   :type 'regex
   :group 'org-roam-logseq)
