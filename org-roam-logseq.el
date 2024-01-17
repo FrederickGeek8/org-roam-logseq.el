@@ -214,14 +214,18 @@
     (seq-filter 'org-roam-logseq-roam-file-modified-p
                 (org-roam--list-files org-roam-logseq/logseq-folder))))
 
+;;;###autoload
 (defun org-roam-logseq-check-logseq ()
+  "Check all org files for logseq links."
   (interactive)
   (setq files (org-roam--list-files org-roam-logseq/logseq-folder))
   (message "org-roam-logseq-check-logseq is processing %d" (length files))
   (org-roam-logseq-patch files)
   )
 
+;;;###autoload
 (defun org-roam-logseq-check-logseq-unsynced ()
+  "Check unsynced org files for logseq links."
   (interactive)
   (setq files (org-roam--list-files org-roam-logseq/logseq-folder))
   (setq files-in-db (apply #'append (org-roam-db-query [:select file :from files])))
